@@ -29,10 +29,10 @@ public class Board {
 
     public void PrintBoard(){
         //Temporary tester for Board
-        System.out.println(" _________________________________________");
+        System.out.println("  |_0_|_1_|_2_|_3_|_4_|_5_|_6_|_7_|_8_|_9_|");
         for(int i=0; i<10; i++) {
-            System.out.println(" | " + PlayBoard[0][i].getPiece() + " | " + PlayBoard[1][i].getPiece() + " | " + PlayBoard[2][i].getPiece() + " | " + PlayBoard[3][i].getPiece() + " | " + PlayBoard[4][i].getPiece() + " | " + PlayBoard[5][i].getPiece() + " | " + PlayBoard[6][i].getPiece() + " | " + PlayBoard[7][i].getPiece() + " | " + PlayBoard[8][i].getPiece() + " | " + PlayBoard[9][i].getPiece()+ " | ");
-            System.out.println(" |___|___|___|___|___|___|___|___|___|___|");
+            System.out.println(i +" | " + PlayBoard[0][i].getPiece() + " | " + PlayBoard[1][i].getPiece() + " | " + PlayBoard[2][i].getPiece() + " | " + PlayBoard[3][i].getPiece() + " | " + PlayBoard[4][i].getPiece() + " | " + PlayBoard[5][i].getPiece() + " | " + PlayBoard[6][i].getPiece() + " | " + PlayBoard[7][i].getPiece() + " | " + PlayBoard[8][i].getPiece() + " | " + PlayBoard[9][i].getPiece()+ " | ");
+            System.out.println("  |___|___|___|___|___|___|___|___|___|___|");
 
         }
     }
@@ -46,7 +46,7 @@ public class Board {
         xF=t.xCoord;
         yF=t.yCoord;
 
-
+        //Water
         if(t==PlayBoard[2][4] || t==PlayBoard[2][5] || t==PlayBoard[3][4] || t==PlayBoard[3][5] ||
                 t==PlayBoard[6][4] || t==PlayBoard[6][5] || t==PlayBoard[7][4] || t==PlayBoard[7][5]){
             return false;
@@ -64,8 +64,10 @@ public class Board {
         if(xF<0 || xF>9 || yF<0 || yF>9){
             return false;
         }
-        //if spaces are water
 
+        /*
+        Scout Movement
+         */
         if(p.Power==2){
             if(xF==xC){
                 if(yF>yC){
@@ -169,28 +171,31 @@ public class Board {
             }
         }
 
+
+        /*
+        Default movement
+         */
+
         if(p.Power>0 && p.Power<11){
-            if(xC-xF==-1 || xF-xC==-1 || yF-yC==-1 || yC-yF==-1){
-                if(!t.occupied){
-                    Piece temp = PlayBoard[xC][yC].currentPiece;
-                    temp.xCoord=xC;
-                    temp.yCoord=yC;
-                    //remove piece from current tile
-                    PlayBoard[xC][yC].takePiece();
-                    //place temp piece into requested tile
-                    PlayBoard[xF][yF].placePiece(temp);
-                    return true;
+            if(xC==xF || yC==yF) {
+                if (xC - xF == -1 || xF - xC == -1 || yF - yC == -1 || yC - yF == -1) {
+                    if (!t.occupied) {
+                        Piece temp = PlayBoard[xC][yC].currentPiece;
+                        temp.xCoord = xC;
+                        temp.yCoord = yC;
+                        //remove piece from current tile
+                        PlayBoard[xC][yC].takePiece();
+                        //place temp piece into requested tile
+                        PlayBoard[xF][yF].placePiece(temp);
+                        return true;
+                    } else if (t.currentPiece.PlayerNum != p.PlayerNum) {
+                        action(p, t.currentPiece);
+                        return true;
+                    }
+                    return false;
                 }
-                else if(t.currentPiece.PlayerNum!=p.PlayerNum){
-                    action(p,t.currentPiece);
-                    return true;
-                }
-                return false;
             }
 
-        }
-        else {
-            //dif pieces
         }
         return false;
     }
@@ -198,9 +203,9 @@ public class Board {
 
 
     public boolean swapPiece(Piece p){
+        int j=0;
+        boolean success=false;
         if(p.PlayerNum==1){
-            int j=0;
-            boolean success=false;
             for(Piece i : offCollection1){
                 if(i==p){
 
@@ -225,8 +230,6 @@ public class Board {
             }
         }
         else{
-            int j=0;
-            boolean success=false;
             for(Piece i : offCollection2){
                 if(i==p){
 
