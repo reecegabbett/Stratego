@@ -18,9 +18,9 @@ public class Play {
         Player P2 = B.P2;
         boolean tester = true;
         Scanner input = new Scanner(System.in);
-        B.placePiece(P1,P1.Major1,1,1);
-        B.placePiece(P1,P1.Marshal,2,1);
-        B.placePiece(P2,P2.Spy,3,3);
+        B.placePiece(P1,P1.Miner1,1,1);
+        B.placePiece(P1,P1.Scout1,2,1);
+        B.placePiece(P2,P2.Bomb1,2,3);
 
         /*
         Movement Tester
@@ -31,11 +31,11 @@ public class Play {
         Piece PlayingPiece=P1.Marshal;
         while(tester){
             if(PieceSelector.equals("m")){
-                PlayingPiece=P1.Major1;
+                PlayingPiece=P1.Miner1;
                 tester=false;
             }
-            if(PieceSelector.equals("M")){
-                PlayingPiece=P1.Marshal;
+            if(PieceSelector.equals("s")){
+                PlayingPiece=P1.Scout1;
                 tester=false;
             }
 
@@ -45,7 +45,7 @@ public class Play {
 
             System.out.print("\n~");
             String letter = input.next();
-            System.out.printf("\\");
+            System.out.printf("\n");
             if(letter.equals("u")){
                 int x= PlayingPiece.xCoord;
                 int y =PlayingPiece.yCoord;
@@ -78,8 +78,8 @@ public class Play {
                 tester=false;
             }
             B.PrintBoard();
-            System.out.println(P1.Major1.xCoord);
-            System.out.println(P1.Major1.yCoord);
+            System.out.println(PlayingPiece.xCoord);
+            System.out.println(PlayingPiece.yCoord);
 
         }
 

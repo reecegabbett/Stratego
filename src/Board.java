@@ -46,8 +46,127 @@ public class Board {
         xF=t.xCoord;
         yF=t.yCoord;
 
+
+        if(t==PlayBoard[2][4] || t==PlayBoard[2][5] || t==PlayBoard[3][4] || t==PlayBoard[3][5] ||
+                t==PlayBoard[6][4] || t==PlayBoard[6][5] || t==PlayBoard[7][4] || t==PlayBoard[7][5]){
+            return false;
+        }
+
+        //if trying to move to current spot
+        if(p.xCoord==t.xCoord && p.yCoord==t.yCoord){
+            return false;
+        }
+        //if piece is flag or bomb
+        if(p.Power==0 || p.Power==11){
+            return false;
+        }
+        //if space doesnt exist
         if(xF<0 || xF>9 || yF<0 || yF>9){
             return false;
+        }
+        //if spaces are water
+
+        if(p.Power==2){
+            if(xF==xC){
+                if(yF>yC){
+                    boolean emptyPath=true;
+                    for(int i=yC+1; i<yF; i++){
+                        if(PlayBoard[xC][i].occupied){
+                            emptyPath=false;
+                        }
+                    }
+                    if(emptyPath){
+                        if(!t.occupied){
+                            Piece temp = PlayBoard[xC][yC].currentPiece;
+                            temp.xCoord=xC;
+                            temp.yCoord=yC;
+                            //remove piece from current tile
+                            PlayBoard[xC][yC].takePiece();
+                            //place temp piece into requested tile
+                            PlayBoard[xF][yF].placePiece(temp);
+                            return true;
+                        }
+                        else if(t.currentPiece.PlayerNum!=p.PlayerNum){
+                            action(p,t.currentPiece);
+                            return true;
+                        }
+                    }
+                }
+                if(yC>yF){
+                    boolean emptyPath=true;
+                    for(int i=yC-1; i>yF; i--){
+                        if(PlayBoard[xC][i].occupied){
+                            emptyPath=false;
+                        }
+                    }
+                    if(emptyPath){
+                        if(!t.occupied){
+                            Piece temp = PlayBoard[xC][yC].currentPiece;
+                            temp.xCoord=xC;
+                            temp.yCoord=yC;
+                            //remove piece from current tile
+                            PlayBoard[xC][yC].takePiece();
+                            //place temp piece into requested tile
+                            PlayBoard[xF][yF].placePiece(temp);
+                            return true;
+                        }
+                        else if(t.currentPiece.PlayerNum!=p.PlayerNum){
+                            action(p,t.currentPiece);
+                            return true;
+                        }
+                    }
+                }
+            }
+            if(yF==yC){
+                if(xF>xC){
+                    boolean emptyPath=true;
+                    for(int i=xC+1; i<xF; i++){
+                        if(PlayBoard[i][yC].occupied){
+                            emptyPath=false;
+                        }
+                    }
+                    if(emptyPath){
+                        if(!t.occupied){
+                            Piece temp = PlayBoard[xC][yC].currentPiece;
+                            temp.xCoord=xC;
+                            temp.yCoord=yC;
+                            //remove piece from current tile
+                            PlayBoard[xC][yC].takePiece();
+                            //place temp piece into requested tile
+                            PlayBoard[xF][yF].placePiece(temp);
+                            return true;
+                        }
+                        else if(t.currentPiece.PlayerNum!=p.PlayerNum){
+                            action(p,t.currentPiece);
+                            return true;
+                        }
+                    }
+                }
+                if(xC>xF){
+                    boolean emptyPath=true;
+                    for(int i=xC-1; i>xF; i--){
+                        if(PlayBoard[i][yC].occupied){
+                            emptyPath=false;
+                        }
+                    }
+                    if(emptyPath){
+                        if(!t.occupied){
+                            Piece temp = PlayBoard[xC][yC].currentPiece;
+                            temp.xCoord=xC;
+                            temp.yCoord=yC;
+                            //remove piece from current tile
+                            PlayBoard[xC][yC].takePiece();
+                            //place temp piece into requested tile
+                            PlayBoard[xF][yF].placePiece(temp);
+                            return true;
+                        }
+                        else if(t.currentPiece.PlayerNum!=p.PlayerNum){
+                            action(p,t.currentPiece);
+                            return true;
+                        }
+                    }
+                }
+            }
         }
 
         if(p.Power>0 && p.Power<11){
@@ -160,7 +279,11 @@ public class Board {
 
         }
         else{
-            //
+            swapPiece(p1);
+            swapPiece(p2);
+            PlayBoard[p2.xCoord][p2.yCoord].takePiece();
+            PlayBoard[p1.xCoord][p1.yCoord].takePiece();
+
         }
         return true;
     }
