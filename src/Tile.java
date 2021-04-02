@@ -16,6 +16,7 @@ public class Tile {
     }
 
     public char getPiece(){
+
         if(currentPiece!=null){
             return currentPiece.gettoken();
         }

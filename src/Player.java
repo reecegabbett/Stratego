@@ -85,6 +85,7 @@ public abstract class Player {
         PieceList.add(Scout6);
         PieceList.add(Scout7);
         PieceList.add(Scout8);
+        PieceList.add(Spy);
         PieceList.add(Flag);
     }
 

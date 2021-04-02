@@ -18,13 +18,14 @@ public class Play {
         Player P2 = B.P2;
         boolean tester = true;
         Scanner input = new Scanner(System.in);
-        B.placePiece(P1,P1.Miner1,1,1);
-        B.placePiece(P1,P1.Scout1,2,1);
-        B.placePiece(P2,P2.Bomb1,2,3);
+        B.placePiece(P1.Miner1,1,1);
+        B.placePiece(P1.Scout1,2,1);
+        B.placePiece(P2.Spy,2,3);
 
         /*
         Movement Tester
          */
+
         B.PrintBoard();
 
         tester=true;
@@ -37,11 +38,12 @@ public class Play {
             int yF = input.nextInt();
             Piece p = B.PlayBoard[xC][yC].currentPiece;
             Tile t = B.PlayBoard[xF][yF];
-            B.movePiece(p,t);
+            if(B.PlayBoard[xC][yC].occupied) {
+                boolean succ =B.movePiece(p, t);
 
-            B.PrintBoard();
+                B.PrintBoard();
 
-
+            }
         }
 
 

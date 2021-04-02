@@ -93,7 +93,13 @@ public abstract class Piece {
         }
     }
 
-
+    static class Water extends Piece{
+        Water(){
+            token = 'W';
+            Power = 0;
+            PlayerNum=0;
+        }
+    }
 
 
 

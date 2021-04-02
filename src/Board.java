@@ -25,6 +25,17 @@ public class Board {
             }
         }
 
+        //Water Tiles
+        Piece w = new Piece.Water();
+        placePiece(w,2,4);
+        placePiece(w,2,5);
+        placePiece(w,3,4);
+        placePiece(w,3,5);
+        placePiece(w,6,4);
+        placePiece(w,6,5);
+        placePiece(w,7,4);
+        placePiece(w,7,5);
+
     }
 
     public void PrintBoard(){
@@ -39,6 +50,10 @@ public class Board {
 
     //Movement method
     public boolean movePiece(Piece p, Tile t){
+
+
+
+        //YOOOOOO YOU GOTTA MAKE SURE TO NOT ENTER COMBAT IF PLAYERID=0 and THE PLAYERID RESSETS WHEN YOU DIP
         int xC,yC, xF, yF;
         xC= p.xCoord;
         yC=p.yCoord;
@@ -46,158 +61,34 @@ public class Board {
         xF=t.xCoord;
         yF=t.yCoord;
 
-        //Water
-        if(t==PlayBoard[2][4] || t==PlayBoard[2][5] || t==PlayBoard[3][4] || t==PlayBoard[3][5] ||
-                t==PlayBoard[6][4] || t==PlayBoard[6][5] || t==PlayBoard[7][4] || t==PlayBoard[7][5]){
-            return false;
-        }
+        Vector<Tile> validMovements= validMovement(p);
 
-        //if trying to move to current spot
-        if(p.xCoord==t.xCoord && p.yCoord==t.yCoord){
-            return false;
-        }
-        //if piece is flag or bomb
-        if(p.Power==0 || p.Power==11){
-            return false;
-        }
-        //if space doesnt exist
-        if(xF<0 || xF>9 || yF<0 || yF>9){
-            return false;
-        }
-
-        /*
-        Scout Movement
-         */
-        if(p.Power==2){
-            if(xF==xC){
-                if(yF>yC){
-                    boolean emptyPath=true;
-                    for(int i=yC+1; i<yF; i++){
-                        if(PlayBoard[xC][i].occupied){
-                            emptyPath=false;
-                        }
-                    }
-                    if(emptyPath){
-                        if(!t.occupied){
-                            Piece temp = PlayBoard[xC][yC].currentPiece;
-                            temp.xCoord=xC;
-                            temp.yCoord=yC;
-                            //remove piece from current tile
-                            PlayBoard[xC][yC].takePiece();
-                            //place temp piece into requested tile
-                            PlayBoard[xF][yF].placePiece(temp);
-                            return true;
-                        }
-                        else if(t.currentPiece.PlayerNum!=p.PlayerNum){
-                            action(p,t.currentPiece);
-                            return true;
-                        }
-                    }
+        for(Tile i : validMovements){
+            if(t==i){
+                if(!t.occupied) {
+                    Piece temp = PlayBoard[xC][yC].currentPiece;
+                    temp.xCoord = xC;
+                    temp.yCoord = yC;
+                    //remove piece from current tile
+                    PlayBoard[xC][yC].occupied=false;
+                    PlayBoard[xC][yC].takePiece();
+                    //place temp piece into requested tile
+                    PlayBoard[xF][yF].placePiece(temp);
+                    return true;
                 }
-                if(yC>yF){
-                    boolean emptyPath=true;
-                    for(int i=yC-1; i>yF; i--){
-                        if(PlayBoard[xC][i].occupied){
-                            emptyPath=false;
-                        }
-                    }
-                    if(emptyPath){
-                        if(!t.occupied){
-                            Piece temp = PlayBoard[xC][yC].currentPiece;
-                            temp.xCoord=xC;
-                            temp.yCoord=yC;
-                            //remove piece from current tile
-                            PlayBoard[xC][yC].takePiece();
-                            //place temp piece into requested tile
-                            PlayBoard[xF][yF].placePiece(temp);
-                            return true;
-                        }
-                        else if(t.currentPiece.PlayerNum!=p.PlayerNum){
-                            action(p,t.currentPiece);
-                            return true;
-                        }
-                    }
+                //if defending is not same player and not water tile
+                else if(t.currentPiece.PlayerNum!=p.PlayerNum && t.currentPiece.PlayerNum!=0){
+                    boolean result = action(p,t.currentPiece);
+                    return result;
                 }
-            }
-            if(yF==yC){
-                if(xF>xC){
-                    boolean emptyPath=true;
-                    for(int i=xC+1; i<xF; i++){
-                        if(PlayBoard[i][yC].occupied){
-                            emptyPath=false;
-                        }
-                    }
-                    if(emptyPath){
-                        if(!t.occupied){
-                            Piece temp = PlayBoard[xC][yC].currentPiece;
-                            temp.xCoord=xC;
-                            temp.yCoord=yC;
-                            //remove piece from current tile
-                            PlayBoard[xC][yC].takePiece();
-                            //place temp piece into requested tile
-                            PlayBoard[xF][yF].placePiece(temp);
-                            return true;
-                        }
-                        else if(t.currentPiece.PlayerNum!=p.PlayerNum){
-                            action(p,t.currentPiece);
-                            return true;
-                        }
-                    }
-                }
-                if(xC>xF){
-                    boolean emptyPath=true;
-                    for(int i=xC-1; i>xF; i--){
-                        if(PlayBoard[i][yC].occupied){
-                            emptyPath=false;
-                        }
-                    }
-                    if(emptyPath){
-                        if(!t.occupied){
-                            Piece temp = PlayBoard[xC][yC].currentPiece;
-                            temp.xCoord=xC;
-                            temp.yCoord=yC;
-                            //remove piece from current tile
-                            PlayBoard[xC][yC].takePiece();
-                            //place temp piece into requested tile
-                            PlayBoard[xF][yF].placePiece(temp);
-                            return true;
-                        }
-                        else if(t.currentPiece.PlayerNum!=p.PlayerNum){
-                            action(p,t.currentPiece);
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-
-
-        /*
-        Default movement
-         */
-
-        if(p.Power>0 && p.Power<11){
-            if(xC==xF || yC==yF) {
-                if (xC - xF == -1 || xF - xC == -1 || yF - yC == -1 || yC - yF == -1) {
-                    if (!t.occupied) {
-                        Piece temp = PlayBoard[xC][yC].currentPiece;
-                        temp.xCoord = xC;
-                        temp.yCoord = yC;
-                        //remove piece from current tile
-                        PlayBoard[xC][yC].takePiece();
-                        //place temp piece into requested tile
-                        PlayBoard[xF][yF].placePiece(temp);
-                        return true;
-                    } else if (t.currentPiece.PlayerNum != p.PlayerNum) {
-                        action(p, t.currentPiece);
-                        return true;
-                    }
+                else{
                     return false;
                 }
             }
-
         }
         return false;
+
+
     }
 
 
@@ -256,7 +147,7 @@ public class Board {
     }
 
 
-    public boolean placePiece(Player P, Piece p,int x, int y){
+    public boolean placePiece(Piece p,int x, int y){
         swapPiece(p);
 
         if(PlayBoard[x][y]!=null){
@@ -274,11 +165,13 @@ public class Board {
             PlayBoard[p1.xCoord][p1.yCoord].takePiece();
             PlayBoard[p2.xCoord][p2.yCoord].placePiece(p1);
 
+            PlayBoard[p1.xCoord][p1.yCoord].occupied=false;
 
         }
         else if(p1.Power < p2.Power){
             PlayBoard[p1.xCoord][p1.yCoord].takePiece();
             swapPiece(p1);
+            PlayBoard[p1.xCoord][p1.yCoord].occupied=false;
 
         }
         else{
@@ -286,8 +179,126 @@ public class Board {
             swapPiece(p2);
             PlayBoard[p2.xCoord][p2.yCoord].takePiece();
             PlayBoard[p1.xCoord][p1.yCoord].takePiece();
+            PlayBoard[p1.xCoord][p1.yCoord].occupied=false;
+            PlayBoard[p2.xCoord][p2.yCoord].occupied=false;
+
 
         }
         return true;
     }
+
+    public Vector<Tile> validMovement(Piece p){
+        Vector<Tile> validMovements= new Vector<>();
+
+        if(p.Power==0 || p.Power==11){
+            return validMovements;
+        }
+
+
+        if(!(p.Power==2)){
+            int x = p.xCoord;
+            int y = p.yCoord;
+            if(x>0){
+                validMovements.add(PlayBoard[x-1][y]);
+            }
+            if(x<9){
+                validMovements.add(PlayBoard[x+1][y]);
+            }
+            if(y>0){
+                validMovements.add(PlayBoard[x][y-1]);
+            }
+            if(y<9){
+                validMovements.add(PlayBoard[x][y+1]);
+            }
+
+
+        }
+        else{
+            int x = p.xCoord;
+            int y = p.yCoord;
+            boolean loop;
+            int z;
+
+            //left
+            loop = true;
+            z=x;
+            while(loop){
+                z--;
+                if(z>=0) {
+                    if(!PlayBoard[z][y].occupied){
+                        validMovements.add(PlayBoard[z][y]);
+                    }
+                    else{
+                        validMovements.add(PlayBoard[z][y]);
+                        loop=false;
+                    }
+                }
+                else{loop=false;}
+
+            }
+
+            //right
+            loop = true;
+            z=x;
+            while(loop){
+                z++;
+                if(z<=9) {
+                    if(!PlayBoard[z][y].occupied){
+                        validMovements.add(PlayBoard[z][y]);
+                    }
+                    else{
+                        validMovements.add(PlayBoard[z][y]);
+                        loop=false;
+                    }
+                }
+                else{loop=false;}
+
+            }
+
+            //down
+            loop = true;
+            z=y;
+            while(loop){
+                z++;
+                if(z<=9) {
+                    if(!PlayBoard[x][z].occupied){
+                        validMovements.add(PlayBoard[x][z]);
+                    }
+                    else{
+                        validMovements.add(PlayBoard[x][z]);
+                        loop=false;
+                    }
+                }
+                else{loop=false;}
+
+            }
+
+            //up
+            loop = true;
+            z=y;
+            while(loop){
+                z--;
+                if(z>=0) {
+                    if(!PlayBoard[x][z].occupied){
+                        validMovements.add(PlayBoard[x][z]);
+                    }
+                    else{
+                        validMovements.add(PlayBoard[x][z]);
+                        loop=false;
+                    }
+                }
+                else{loop=false;}
+
+            }
+
+
+
+            return  validMovements;
+
+
+        }
+
+        return validMovements;
+    }
+
 }
