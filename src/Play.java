@@ -19,7 +19,7 @@ public class Play {
         boolean tester = true;
         Scanner input = new Scanner(System.in);
         B.placePiece(P1.Scout1,0,0);
-        B.placePiece(P1.Bomb1,1,0);
+        B.placePiece(P1.Scout2,1,0);
         B.placePiece(P1.Bomb2,0,1);
 
         B.placePiece(P2.Spy,2,3);

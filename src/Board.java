@@ -197,17 +197,37 @@ public class Board {
         if(!(p.Power==2)){
             int x = p.xCoord;
             int y = p.yCoord;
-            if(x>0 && (PlayBoard[x-1][y].currentPiece.PlayerNum!=p.PlayerNum)){
-                validMovements.add(PlayBoard[x-1][y]);
+            if(x>0 ){
+                if(!PlayBoard[x-1][y].occupied){
+                    validMovements.add(PlayBoard[x - 1][y]);
+                }
+                else if(PlayBoard[x-1][y].currentPiece.PlayerNum!=p.PlayerNum) {
+                    validMovements.add(PlayBoard[x - 1][y]);
+                }
             }
-            if(x<9 && (PlayBoard[x+1][y].currentPiece.PlayerNum!=p.PlayerNum)){
-                validMovements.add(PlayBoard[x+1][y]);
+            if(x<9 ){
+                if(!PlayBoard[x+1][y].occupied){
+                    validMovements.add(PlayBoard[x + 1][y]);
+                }
+                else if(PlayBoard[x+1][y].currentPiece.PlayerNum!=p.PlayerNum) {
+                    validMovements.add(PlayBoard[x + 1][y]);
+                }
             }
-            if(y>0 && (PlayBoard[x][y-1].currentPiece.PlayerNum!=p.PlayerNum)){
-                validMovements.add(PlayBoard[x][y-1]);
+            if(y>0 ){
+                if(!PlayBoard[x][y-1].occupied){
+                    validMovements.add(PlayBoard[x][y-1]);
+                }
+                else if(PlayBoard[x][y-1].currentPiece.PlayerNum!=p.PlayerNum) {
+                    validMovements.add(PlayBoard[x][y-1]);
+                }
             }
-            if(y<9 && (PlayBoard[x][y+1].currentPiece.PlayerNum!=p.PlayerNum)){
-                validMovements.add(PlayBoard[x][y+1]);
+            if(y<9 ){
+                if(!PlayBoard[x][y+1].occupied){
+                    validMovements.add(PlayBoard[x][y+1]);
+                }
+                else if(PlayBoard[x][y+1].currentPiece.PlayerNum!=p.PlayerNum) {
+                    validMovements.add(PlayBoard[x][y+1]);
+                }
             }
 
 
