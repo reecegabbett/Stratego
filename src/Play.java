@@ -18,9 +18,14 @@ public class Play {
         Player P2 = B.P2;
         boolean tester = true;
         Scanner input = new Scanner(System.in);
-        B.placePiece(P1.Miner1,1,1);
-        B.placePiece(P1.Scout1,2,1);
+        B.placePiece(P1.Scout1,0,0);
+        B.placePiece(P1.Bomb1,1,0);
+        B.placePiece(P1.Bomb2,0,1);
+
         B.placePiece(P2.Spy,2,3);
+
+
+        System.out.println(B.hasValidMove(P1));
 
         /*
         Movement Tester

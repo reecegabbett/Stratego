@@ -53,7 +53,6 @@ public class Board {
 
 
 
-        //YOOOOOO YOU GOTTA MAKE SURE TO NOT ENTER COMBAT IF PLAYERID=0 and THE PLAYERID RESSETS WHEN YOU DIP
         int xC,yC, xF, yF;
         xC= p.xCoord;
         yC=p.yCoord;
@@ -198,16 +197,16 @@ public class Board {
         if(!(p.Power==2)){
             int x = p.xCoord;
             int y = p.yCoord;
-            if(x>0){
+            if(x>0 && (PlayBoard[x-1][y].currentPiece.PlayerNum!=p.PlayerNum)){
                 validMovements.add(PlayBoard[x-1][y]);
             }
-            if(x<9){
+            if(x<9 && (PlayBoard[x+1][y].currentPiece.PlayerNum!=p.PlayerNum)){
                 validMovements.add(PlayBoard[x+1][y]);
             }
-            if(y>0){
+            if(y>0 && (PlayBoard[x][y-1].currentPiece.PlayerNum!=p.PlayerNum)){
                 validMovements.add(PlayBoard[x][y-1]);
             }
-            if(y<9){
+            if(y<9 && (PlayBoard[x][y+1].currentPiece.PlayerNum!=p.PlayerNum)){
                 validMovements.add(PlayBoard[x][y+1]);
             }
 
@@ -228,8 +227,11 @@ public class Board {
                     if(!PlayBoard[z][y].occupied){
                         validMovements.add(PlayBoard[z][y]);
                     }
-                    else{
+                    else if(PlayBoard[z][y].currentPiece.PlayerNum!=p.PlayerNum){
                         validMovements.add(PlayBoard[z][y]);
+                        loop=false;
+                    }
+                    else{
                         loop=false;
                     }
                 }
@@ -246,8 +248,11 @@ public class Board {
                     if(!PlayBoard[z][y].occupied){
                         validMovements.add(PlayBoard[z][y]);
                     }
-                    else{
+                    else if(PlayBoard[z][y].currentPiece.PlayerNum!=p.PlayerNum){
                         validMovements.add(PlayBoard[z][y]);
+                        loop=false;
+                    }
+                    else{
                         loop=false;
                     }
                 }
@@ -264,8 +269,11 @@ public class Board {
                     if(!PlayBoard[x][z].occupied){
                         validMovements.add(PlayBoard[x][z]);
                     }
-                    else{
+                    else if(PlayBoard[x][z].currentPiece.PlayerNum!=p.PlayerNum){
                         validMovements.add(PlayBoard[x][z]);
+                        loop=false;
+                    }
+                    else{
                         loop=false;
                     }
                 }
@@ -282,8 +290,11 @@ public class Board {
                     if(!PlayBoard[x][z].occupied){
                         validMovements.add(PlayBoard[x][z]);
                     }
-                    else{
+                    else if(PlayBoard[x][z].currentPiece.PlayerNum!=p.PlayerNum){
                         validMovements.add(PlayBoard[x][z]);
+                        loop=false;
+                    }
+                    else{
                         loop=false;
                     }
                 }
@@ -300,5 +311,34 @@ public class Board {
 
         return validMovements;
     }
+
+    public boolean hasValidMove(Player p){
+        boolean hasMove = false;
+        Vector<Tile> emptyVector= new Vector<>();
+
+        if(p.PlayerID==1){
+            for(Piece i : onCollection1){
+                Vector<Tile> temp = validMovement(i);
+                if(!temp.isEmpty()){
+                    hasMove=true;
+                }
+
+            }
+        }
+        else{
+            for(Piece i : onCollection2){
+                Vector<Tile> temp = validMovement(i);
+                if(!temp.isEmpty()){
+                    hasMove=true;
+                }
+            }
+        }
+
+        return hasMove;
+    }
+
+
+
+
 
 }
