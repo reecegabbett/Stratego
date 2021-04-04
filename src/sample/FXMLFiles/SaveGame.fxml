@@ -14,7 +14,7 @@
             <center>
                 <VBox alignment="TOP_CENTER" prefHeight="660.0" prefWidth="1438.0" spacing="20" BorderPane.alignment="CENTER">
                     <children>
-                        <Button fx:id="SlotOne" mnemonicParsing="false" prefHeight="85.0" prefWidth="266.0" styleClass="button2" stylesheets="@../Stylesheets/Buttons.css" text="Slot One" />
+                        <Button fx:id="Slot1" mnemonicParsing="false" prefHeight="85.0" prefWidth="266.0" styleClass="button2" stylesheets="@../Stylesheets/Buttons.css" text="Slot One" />
                         <Button fx:id="SlotTwo" mnemonicParsing="false" prefHeight="85.0" prefWidth="266.0" styleClass="button2" stylesheets="@../Stylesheets/Buttons.css" text="Slot Two" />
                         <Button fx:id="SlotThree" mnemonicParsing="false" prefHeight="85.0" prefWidth="266.0" styleClass="button2" stylesheets="@../Stylesheets/Buttons.css" text="Slot Three" />
                         <Button fx:id="SlotFour" mnemonicParsing="false" prefHeight="85.0" prefWidth="266.0" styleClass="button2" stylesheets="@../Stylesheets/Buttons.css" text="Slot Four" />

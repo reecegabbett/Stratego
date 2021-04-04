@@ -12,8 +12,6 @@ public abstract class Piece {
     }
 
 
-
-
     static class Bomb extends Piece{
         Bomb(){
             token = 'B';
