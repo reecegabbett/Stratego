@@ -1,3 +1,5 @@
+package Stratego;
+
 import java.util.Scanner;
 
 public class Play {
@@ -5,14 +7,13 @@ public class Play {
 
 
         /*
-        The Play Class is simply a tester class that I used to
+        The Stratego.Play Class is simply a tester class that I used to
         test all of the functions from the rest of the classes.
 
         */ /*
 
         Implementing objects and placing pieces.
          */
-
         Board B = new Board();
         Player P1 = B.P1;
         Player P2 = B.P2;

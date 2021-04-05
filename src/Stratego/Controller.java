@@ -1,4 +1,4 @@
-package sample;
+package Stratego;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,17 +13,18 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 public class Controller implements Initializable
 {
     @FXML
     private CheckBox RM,AA,PWP;
     @FXML
-    private Button NewGame,LoadGame,Options,Exit,Save,SaveOne,SaveTwo,SaveThree,SaveFour,GoBack,SaveOptions;
+    private Button NewGame,LoadGame,Options,Exit,Save,SaveOne,SaveTwo,SaveThree,SaveFour,
+            SlotOne,SlotTwo,SlotThree,SlotFour, GoBack,SaveOptions;
     private Boolean Password,Advantage,Rescue;
     @FXML
     public void HandleButtonAction(ActionEvent actionEvent) throws Exception
@@ -60,30 +61,9 @@ public class Controller implements Initializable
         {
             stage = (Stage) GoBack.getScene().getWindow();
             root = FXMLLoader.load(getClass().getResource("FXMLFiles/HomePage.fxml"));
-            if(PWP.isSelected())
-            {
-                Password =true;
-            }
-            else
-            {
-                Password = false;
-            }
-            if(AA.isSelected())
-            {
-                Advantage =true;
-            }
-            else
-            {
-                Advantage = false;
-            }
-            if(RM.isSelected())
-            {
-                Rescue =true;
-            }
-            else
-            {
-                Rescue = false;
-            }
+            Password = PWP.isSelected();
+            Advantage = AA.isSelected();
+            Rescue = RM.isSelected();
         }
 
         Scene scene = new Scene(root);

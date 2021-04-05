@@ -1,4 +1,4 @@
-
+package Stratego;
 
 public abstract class Piece {
     int xCoord;

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="903.0" minWidth="1438.0" prefHeight="903.0" prefWidth="1438.0" styleClass="bodybg2" stylesheets="@../Stylesheets/Backgrounds.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane minHeight="903.0" minWidth="1438.0" prefHeight="903.0" prefWidth="1438.0" styleClass="bodybg2" stylesheets="@../Stylesheets/Backgrounds.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Stratego.Controller">
    <children>
       <BorderPane minHeight="903.0" minWidth="1438.0" prefHeight="903.0" prefWidth="1438.0">
          <center>

@@ -1,3 +1,5 @@
+package Stratego;
+
 public class Tile {
 
     public boolean occupied;

@@ -1,23 +1,25 @@
+package Stratego;
+
 import java.util.*;
 
 public class Board {
 
 
-    public Tile[][] PlayBoard; //The 2D Tile Array used to represent the board
-    Player.Player1 P1 = new Player.Player1(); //Implementing Player 1 Object
-    Player.Player2 P2 = new Player.Player2(); //Implementing Player 2 Object
-    Vector<Piece> onCollection1 = new Vector<>();  //Implementing vector for Player 1 pieces CURRENTLY on board
-    Vector<Piece> offCollection1 = new Vector<>(); //Implementing vector for Player 1 pieces NOT CURRENTLY on board
-    Vector<Piece> onCollection2 = new Vector<>(); //Implementing vector for Player 2 pieces CURRENTLY on board
-    Vector<Piece> offCollection2 = new Vector<>(); //Implementing vector for Player 2 pieces NOT CURRENTLY on board
+    public Tile[][] PlayBoard; //The 2D Stratego.Tile Array used to represent the board
+    Player.Player1 P1 = new Player.Player1(); //Implementing Stratego.Player 1 Object
+    Player.Player2 P2 = new Player.Player2(); //Implementing Stratego.Player 2 Object
+    Vector<Piece> onCollection1 = new Vector<>();  //Implementing vector for Stratego.Player 1 pieces CURRENTLY on board
+    Vector<Piece> offCollection1 = new Vector<>(); //Implementing vector for Stratego.Player 1 pieces NOT CURRENTLY on board
+    Vector<Piece> onCollection2 = new Vector<>(); //Implementing vector for Stratego.Player 2 pieces CURRENTLY on board
+    Vector<Piece> offCollection2 = new Vector<>(); //Implementing vector for Stratego.Player 2 pieces NOT CURRENTLY on board
 
-    //Board Constructor
+    //Stratego.Board Constructor
     public Board(){
-        //Adding Player's Pieces to the offCollections in the Board
+        //Adding Stratego.Player's Pieces to the offCollections in the Stratego.Board
         offCollection1.addAll(P1.PieceList);
         offCollection2.addAll(P2.PieceList);
 
-        //Making the Board's 2D Tile array
+        //Making the Stratego.Board's 2D Stratego.Tile array
         PlayBoard = new Tile[10][10];
         for(int i=0; i<10; i++){
             for(int j=0; j<10; j++){
@@ -39,7 +41,7 @@ public class Board {
     }
 
     public void PrintBoard(){
-        //Temporary tester for Board
+        //Temporary tester for Stratego.Board
         System.out.println("  |_0_|_1_|_2_|_3_|_4_|_5_|_6_|_7_|_8_|_9_|");
         for(int i=0; i<10; i++) {
             System.out.println(i +" | " + PlayBoard[0][i].getPiece() + " | " + PlayBoard[1][i].getPiece() + " | " + PlayBoard[2][i].getPiece() + " | " + PlayBoard[3][i].getPiece() + " | " + PlayBoard[4][i].getPiece() + " | " + PlayBoard[5][i].getPiece() + " | " + PlayBoard[6][i].getPiece() + " | " + PlayBoard[7][i].getPiece() + " | " + PlayBoard[8][i].getPiece() + " | " + PlayBoard[9][i].getPiece()+ " | ");

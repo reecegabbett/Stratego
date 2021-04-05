@@ -1,3 +1,5 @@
+package Stratego;
+
 import java.awt.Color;
 import java.util.*;
 
