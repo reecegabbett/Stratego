@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.text.Font?>
+<AnchorPane minHeight="903.0" minWidth="1438.0" prefHeight="903.0" prefWidth="1438.0" styleClass="bodybg2" stylesheets="@../Stylesheets/Backgrounds.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Stratego.Controller">
+    <children>
+        <BorderPane minHeight="903.0" minWidth="1438.0" prefHeight="903.0" prefWidth="1438.0">
+            <center>
+                <VBox alignment="TOP_CENTER" prefHeight="660.0" prefWidth="1438.0" spacing="20" BorderPane.alignment="CENTER">
+                    <children>
+                        <Button fx:id="SlotOne" mnemonicParsing="false" prefHeight="85.0" prefWidth="266.0" styleClass="button2" stylesheets="@../Stylesheets/Buttons.css" text="Slot One" />
+                        <Button fx:id="SlotTwo" mnemonicParsing="false" prefHeight="85.0" prefWidth="266.0" styleClass="button2" stylesheets="@../Stylesheets/Buttons.css" text="Slot Two" />
+                        <Button fx:id="SlotThree" mnemonicParsing="false" prefHeight="85.0" prefWidth="266.0" styleClass="button2" stylesheets="@../Stylesheets/Buttons.css" text="Slot Three" />
+                        <Button fx:id="SlotFour" mnemonicParsing="false" prefHeight="85.0" prefWidth="266.0" styleClass="button2" stylesheets="@../Stylesheets/Buttons.css" text="Slot Four" />
+                    </children>
+                </VBox>
+            </center>
+         <top>
+            <Pane prefHeight="476.0" prefWidth="1438.0" BorderPane.alignment="CENTER">
+               <children>
+                   <Label alignment="CENTER" layoutX="593.0" layoutY="189.0" prefHeight="146.0" prefWidth="258.0" styleClass="button2" stylesheets="@../Stylesheets/Buttons.css" text="Save Slots">
+                       <font>
+                           <Font size="42.0" />
+                       </font>
+                   </Label>
+                  <Button layoutY="1.0" mnemonicParsing="false" styleClass="button2" stylesheets="@../Stylesheets/Buttons.css" fx:id="GoBack" text="Go Back" onAction="#HandleButtonAction"/>
+               </children>
+            </Pane>
+         </top>
+        </BorderPane>
+    </children>
+</AnchorPane>
